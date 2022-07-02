@@ -1,0 +1,55 @@
+POST http://localhost:4100/graphql
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+query {
+  getAllPersons {
+    lastname
+    firstname
+    birthdate
+  }
+}
+
+###
+
+POST http://localhost:4100/graphql
+Content-Type: application/json
+X-REQUEST-TYPE: GraphQL
+
+query ($name: String!) {
+  getPersonsByName(firstname: $name) {
+    firstname
+    birthdate
+  }
+}
+
+{
+  "name" : "Adam"
+}
+
+###
+
+query ($date: Date!) {
+  getPersonsByDate(date: $date) {
+    lastname
+  }
+}
+
+{
+  "date": "1969-AA-06"
+}
+
+###
+
+mutation Mutation($lastname: String!, $firstname: String!, $birthdate: Date) {
+  createPerson(lastname: $lastname, firstname: $firstname, birthdate: $birthdate) {
+    lastname
+    birthdate
+  }
+}
+
+{
+  "lastname": "Trust",
+  "firstname": "Mutation",
+  "birthdate": "12/012022"
+}
